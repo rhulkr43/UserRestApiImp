@@ -15,4 +15,11 @@ public class UrlUtill {
 	public static String viewString=baseurl+"/user/view/";
 	public static String save=baseurl+"/user/save";
 	public static String update=baseurl+"/user/update";
+	public static String getuserString=baseurl+"/user/getUser";
+	
+	
+	//Task Link
+	
+	public static String listtaskString=baseurl+"/task/list";
+	public static String addtask=baseurl+"/task/add";
 }

@@ -50,26 +50,20 @@ public class HomeController {
 	private RestTemplate restTemplate;
 	@RequestMapping(value="/",method = RequestMethod.GET)
 	public String home(Model mode,HttpSession session) {
-	/*	
-		ResponseEntity<User[]> responseEntity = restTemplate.getForEntity(urlUtill.getuserlist, User[].class);
-		User[] objects = responseEntity.getBody();
-		MediaType contentType = responseEntity.getHeaders().getContentType();
-		HttpStatus statusCode = responseEntity.getStatusCode();
-		for(User u:objects) {
-			System.out.println(u.getEmail());
-		}
-		*/
-		if(session.getAttribute("token").equals(null)) {
-			return "login";
-		}
-		String t1="Bearer "+token.getToken();
-		HttpHeaders headers = new HttpHeaders();
-		headers.add("Authorization",t1);
-		HttpEntity<String> request = new HttpEntity<String>(headers);
-		ResponseEntity<User[]> response = restTemplate.exchange(urlUtill.getuserlist, HttpMethod.GET, request, User[].class);
-		User[] account = response.getBody();
+		
+		User[] account=userServiceImpl.ListUser(session);
 		mode.addAttribute("list",account);
 		return "index";
+		
+		
+	}
+	@RequestMapping(value="/user",method = RequestMethod.GET)
+	public String user(Model mode,HttpSession session) {
+		
+		User[] account=userServiceImpl.ListUser(session);
+		
+		mode.addAttribute("list",account);
+		return "user";
 		
 		
 	}
@@ -91,6 +85,13 @@ public class HomeController {
 			HttpStatus statuString=data.getStatusCode();
 			String  token=data.getBody().getToken();
 		    this.token.setToken(token);
+		    String t1="Bearer "+token;
+		    HttpHeaders headers = new HttpHeaders();
+			headers.add("Authorization",t1);
+			HttpEntity<String> request = new HttpEntity<String>(headers);
+		    ResponseEntity<User> response = restTemplate.exchange(urlUtill.getuserString+"/"+username, HttpMethod.GET, request, User.class);
+			
+			session.setAttribute("user", response.getBody());
 		    session.setAttribute("token", token);
 		    model.addAttribute("message", "User Login Successfull");
 		    return "redirect:/";
