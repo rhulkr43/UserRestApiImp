@@ -29,8 +29,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 
 import com.project.ApiUtill.UrlUtill;
+import com.project.Model.Task;
 import com.project.Model.Token;
 import com.project.Model.User;
+import com.project.Service.TaskService;
 import com.project.Service.UserServiceImpl;
 
 import ch.qos.logback.classic.pattern.Util;
@@ -48,22 +50,40 @@ public class HomeController {
 	 Token token;
 	@Autowired
 	private RestTemplate restTemplate;
+	@Autowired
+	private TaskService taskService;
 	@RequestMapping(value="/",method = RequestMethod.GET)
 	public String home(Model mode,HttpSession session) {
+		System.out.println("session"+session);
+		if(session.getAttribute("user")==null) {
+			return "redirect:/login";
+		}else {
+			User[] account=userServiceImpl.ListUser(session);
+			mode.addAttribute("list",account);
+			return "index";
+		}
 		
-		User[] account=userServiceImpl.ListUser(session);
-		mode.addAttribute("list",account);
-		return "index";
 		
 		
 	}
 	@RequestMapping(value="/user",method = RequestMethod.GET)
 	public String user(Model mode,HttpSession session) {
 		
+		
+		return "user";
+		
+		
+	}
+	@RequestMapping(value="/user/list",method = RequestMethod.GET)
+	public String userlist(Model mode,HttpSession session) {
+		
+		
+		  
+		   
 		User[] account=userServiceImpl.ListUser(session);
 		
 		mode.addAttribute("list",account);
-		return "user";
+		return "userlist";
 		
 		
 	}
@@ -126,7 +146,7 @@ public class HomeController {
 	public String adduser() {
 		return "add";
 	}
-	@RequestMapping(value="/save",method = RequestMethod.POST)
+	@RequestMapping(value="/user/save",method = RequestMethod.POST)
 	public String save(@RequestParam("username") String username,@RequestParam("email") String email,@RequestParam("password") String pasword,@RequestParam("roles") String roles ) {
 		
 		Map<String, String> map= new HashMap();
@@ -141,7 +161,7 @@ public class HomeController {
 System.out.println(map);
 		ResponseEntity<String> response = restTemplate.postForEntity(urlUtill.save, request, String.class);
 		map.put("message", response.getBody());
-		return "redirect:/";
+		return "redirect:/user/list";
 	}
 	@RequestMapping(value="/update",method = RequestMethod.POST)
 	public String update(Model model,@RequestParam("id") long id,@RequestParam("username") String username,@RequestParam("email") String email,@RequestParam("password") String pasword,@RequestParam("roles") String roles ) {
@@ -189,5 +209,22 @@ System.out.println(map);
 		uMap.put("list", uMap);
 		model.addAttribute("list", user);
 	   return "edit";
+   }
+   
+   @RequestMapping(value = "user/task/pending",method = RequestMethod.GET)
+   public String userTask(HttpSession session,Model model) {
+	   
+	   Task[] list=taskService.getAllListbyUserid(session);
+	   model.addAttribute("list",list);
+	   return "usertasklist";
+   }
+   @RequestMapping(value = "user/task/completed",method = RequestMethod.GET)
+   public String completed() {
+	   return "usertaskcompleted";
+   }
+   @RequestMapping("/logout")
+   public String logout(HttpSession session) {
+	   session.invalidate();
+	   return "redirect:/login";
    }
 }

@@ -9,48 +9,49 @@
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <jsp:include page="header.jsp"></jsp:include>
-<body>
 <div class="breadcome-area">
 <div class="container-fluid">
 <div class="row">
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 <div class="breadcome-list">
-<h1 class="text-center">Add Task </h1>
+<h1 class="text-center">User Report List</h1>
 </div>
 </div>
 </div>
 </div>
 </div>
 
-<div class="section-admin container-fluid"  style="margin-left:20%" >
+<div class="section-admin container-fluid" style="margin-left:20%">
 <div class="row admin text-center">
-<
+
+<c:if test="${message!=null}">
+<div class="alert alert-success">${message}</div>
+</c:if>
 <div class="col-md-12">
-<form action="/task/add" method="POST">
 <table class="table table-bordered">
 <tr>
-<td>select User</td><td>
-<select name="user_id" class="form-control">
-<option>Select User</option>
+
+<td>Subject</td>
+<td>Comment</td>
+<td>Starting Time</td>
+<td>Ending Time</td>
+<td>Date</td>
+<td>Status</td>
+</tr>
 <c:forEach var="list" items="${list}">
-<option value="${list.getId()}">${list.getUsername()}</option>
+
+<tr>
+
+<td>${list.subject}</td>
+<td>${list.comment}</td>
+<td>${list.startingtime}</td>
+<td>${list.endingTime}</td>
+<td>${list.date}</td>
+<td>${list.isCompleted()}</td>
+</tr>
 </c:forEach>
-</select>
-
-</td>
-</tr>
-<tr>
-<td>Title</td><td><input type="text" name="title" class="form-control"/></td>
-</tr>
-<tr>
-<td>Comment</td><td><textarea rows="10" cols="10" name="comment" class="form-control"></textarea></td>
-</tr>
-
-<tr>
-<td></td><td><input type="submit"  class="btn btn-primary"/></td>
-</tr>
 </table>
-</form>
+</div>
 </div>
 </div>
 <jsp:include page="footer.jsp"></jsp:include>

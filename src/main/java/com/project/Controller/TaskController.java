@@ -1,10 +1,14 @@
 package com.project.Controller;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpSession;
+import javax.swing.event.ListSelectionEvent;
 import javax.websocket.Session;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +18,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,6 +26,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.project.ApiUtill.UrlUtill;
 import com.project.Model.Task;
+import com.project.Model.TaskAssign;
 import com.project.Model.Token;
 import com.project.Model.User;
 import com.project.Service.TaskService;
@@ -40,7 +46,7 @@ public class TaskController {
 	 Token token;
 	@Autowired
 	private RestTemplate restTemplate;
-	@RequestMapping(value = "/",method = RequestMethod.GET)
+	@RequestMapping(value = "/list",method = RequestMethod.GET)
 	public String task(Model mode,HttpSession session) {
 		Task[] account=taskService.getAllList(session);
 		mode.addAttribute("list",account);
@@ -68,7 +74,45 @@ public class TaskController {
 		ResponseEntity<String> response = restTemplate.postForEntity(urlUtill.addtask, request, String.class);
 		map.put("message", response.getBody());
 	
-		return "redirect:/task/";
+		return "redirect:/task/list";
 	}
 
+	@RequestMapping(value = "/report",method = RequestMethod.GET)
+	public String Report(HttpSession session,Model model) {
+		Task[] list=taskService.getAllListbyUserid(session);
+		
+		List<Task> list2=Arrays.asList(list);
+		model.addAttribute("list",list);
+		return "report";
+	}
+	@RequestMapping(value = "/report/save",method = RequestMethod.POST)
+	public String Reportsave(HttpSession session,@RequestParam("taskid") Long taskid,
+			@RequestParam("subject") String subject,
+			@RequestParam("comment") String comment,
+			@RequestParam("startingtime") String startingtime,
+			@RequestParam("ending_time") String ending_time) 
+	{
+		System.out.println("taskid"+taskid);
+		TaskAssign taskAssign=new TaskAssign();
+		User user=(User)session.getAttribute("user");
+		taskAssign.setUser_id(Integer.parseInt(""+user.getId()));
+		taskAssign.setComment(comment);
+		taskAssign.setCompleted(false);
+		taskAssign.setDate(LocalDate.now());
+		taskAssign.setEndingTime(ending_time);
+		taskAssign.setStartingtime(startingtime);
+		taskAssign.setSubject(subject);
+		taskAssign.setTaskid(Integer.parseInt(""+taskid));
+		String t2="Bearer "+session.getAttribute("token");
+		Map<String, Object> map=taskService.saveTask(taskAssign, t2);
+		
+		return "redirect:/task/report";
+	}
+	@RequestMapping(value = "/report/list",method = RequestMethod.GET)
+	public String Reportlist(HttpSession session,Model model) {
+		User user=(User)session.getAttribute("user");
+		TaskAssign[] lisTaskAssigns=taskService.getTaskAssignList(session);
+			model.addAttribute("list",lisTaskAssigns);
+		return "reportlist";
+	}
 }

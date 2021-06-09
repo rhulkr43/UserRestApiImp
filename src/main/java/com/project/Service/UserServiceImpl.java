@@ -34,7 +34,7 @@ public class UserServiceImpl {
 	public User[] ListUser(HttpSession session) {
 		// TODO Auto-generated method stub
 		User user=(User) session.getAttribute("user");
-		System.out.println(user.getRoles());
+		
 		String t1="Bearer "+session.getAttribute("token");
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Authorization",t1);

@@ -1,26 +1,18 @@
 package com.project.Model;
 
 import java.time.LocalDate;
-
-
-
-
 public class Task {
 	
 	
 	private Long task_id;
-	public Long getTask_id() {
-		return task_id;
-	}
+	
+	
 	private String title;
 	private String comment;
 	private LocalDate assigndate;
 	private boolean IsActive;
 	private Integer user_id;
 	
-	public void setTask_id(Long task_id) {
-		this.task_id = task_id;
-	}
 	public String getTitle() {
 		return title;
 	}
@@ -52,8 +44,7 @@ public class Task {
 		this.user_id = user_id;
 	}
 	
-	public Task(Long task_id, String title, String comment, LocalDate assigndate, boolean isActive, Integer user_id
-			) {
+	public Task(Long task_id, String title, String comment, LocalDate assigndate, boolean isActive, Integer user_id) {
 		super();
 		this.task_id = task_id;
 		this.title = title;
@@ -61,7 +52,12 @@ public class Task {
 		this.assigndate = assigndate;
 		IsActive = isActive;
 		this.user_id = user_id;
-		
+	}
+	public Long getTask_id() {
+		return task_id;
+	}
+	public void setTask_id(Long task_id) {
+		this.task_id = task_id;
 	}
 	public Task() {
 		super();

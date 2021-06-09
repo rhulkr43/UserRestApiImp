@@ -60,7 +60,7 @@
 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"></div>
 <div class="col-md-4 col-md-4 col-sm-4 col-xs-12">
 <div class="text-center m-b-md custom-login">
-<h3>Rest Api Using Jwt View</h3>
+<h3>Task Management System</h3>
 
 </div>
 <div class="hpanel">

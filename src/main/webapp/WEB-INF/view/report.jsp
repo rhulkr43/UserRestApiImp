@@ -24,28 +24,33 @@
 
 <div class="section-admin container-fluid"  style="margin-left:20%" >
 <div class="row admin text-center">
-<
+
 <div class="col-md-12">
-<form action="/task/add" method="POST">
+<form action="/task/report/save" method="POST">
 <table class="table table-bordered">
 <tr>
 <td>select User</td><td>
-<select name="user_id" class="form-control">
-<option>Select User</option>
+<select name="taskid" class="form-control">
+<option value="">Select User</option>
 <c:forEach var="list" items="${list}">
-<option value="${list.getId()}">${list.getUsername()}</option>
+<option value="${list.getTask_id()}">${list.title}</option>
 </c:forEach>
 </select>
 
 </td>
 </tr>
 <tr>
-<td>Title</td><td><input type="text" name="title" class="form-control"/></td>
+<td>Subject</td><td><input type="text" name="subject" class="form-control"/></td>
 </tr>
 <tr>
 <td>Comment</td><td><textarea rows="10" cols="10" name="comment" class="form-control"></textarea></td>
 </tr>
-
+<tr>
+<td>Starting</td><td><input type="time" name="startingtime" class="form-control"/></td>
+</tr>
+<tr>
+<td>Ending Starting</td><td><input type="time" name="ending_time" class="form-control"/></td>
+</tr>
 <tr>
 <td></td><td><input type="submit"  class="btn btn-primary"/></td>
 </tr>
