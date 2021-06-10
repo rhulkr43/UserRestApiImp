@@ -68,7 +68,7 @@ public class TaskService {
 			map.put("subject", taskAssign.getSubject());
 			map.put("endingTime", taskAssign.getEndingTime());
 			map.put("startingtime", taskAssign.getStartingtime());
-			map.put("is_completed", "false");
+			map.put("completed", taskAssign.isCompleted());
 			map.put("ending_time", taskAssign.getEndingTime());
 			map.put("date", ""+LocalDate.now());
 			map.put("comment", taskAssign.getComment());
@@ -89,5 +89,33 @@ public class TaskService {
 	    TaskAssign[] resAssigns= response.getBody();
 		return resAssigns;
 	}
-
+	public String getTaskAssignList1(HttpSession session,Integer id) {
+		;
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Authorization","Bearer "+session.getAttribute("token"));
+		HttpEntity<String> request = new HttpEntity<String>(headers);
+		
+	    ResponseEntity<String> response = restTemplate.exchange(urlUtill.userdashboardString+"/"+id, HttpMethod.GET, request, String.class);
+	   String map= response.getBody();
+		return map;
+	}
+	public TaskAssign[] getTaskAssignUserList(HttpSession session,Integer id) {
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Authorization","Bearer "+session.getAttribute("token"));
+		HttpEntity<String> request = new HttpEntity<String>(headers);
+		
+	    ResponseEntity<TaskAssign[]> response = restTemplate.exchange(urlUtill.taskAssignLiStringuserid+"/"+id, HttpMethod.GET, request, TaskAssign[].class);
+	    TaskAssign[] resAssigns= response.getBody();
+		return resAssigns;
+	}
+	
+	public String getTaskAssiupdatet(HttpSession session,Integer id) {
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Authorization","Bearer "+session.getAttribute("token"));
+		HttpEntity<String> request = new HttpEntity<String>(headers);
+		
+	    ResponseEntity<String> response = restTemplate.exchange(urlUtill.updatetaskstatuString+"/"+id, HttpMethod.GET, request, String.class);
+	    String resAssigns= response.getBody();
+		return resAssigns;
+	}
 }

@@ -12,8 +12,11 @@ if(user==null){
 <div class="left-sidebar-pro">
 <nav class="">
 <div class="sidebar-header">
-<a href="javascript:void(0);"><h1>Task Management System</h1></a>
+<a href="javascript:void(0);"><h1>TMS</h1></a>
 <strong><h1>TMS</h1></strong>
+<p style="color: black;
+    font-size: 18px;
+    font-weight: bold;"><%=user.getUsername() %></p>
 </div>
 <div class="left-custom-menu-adp-wrap comment-scrollbar">
 <nav class="sidebar-nav left-sidebar-menu-pro">
@@ -26,13 +29,9 @@ if(user==null){
 
 </li>
 <%
-if(user.getRoles().equals("admin"))
+if(user.getRoles().equals("Admin"))
 {
 	%>
-	
-
-
-
 <li>
 <a class="has-arrow" href="mailbox.html" aria-expanded="false"><i class="fa big-icon fa-home icon-wrap"></i> <span class="mini-click-non">User</span></a>
 <ul class="submenu-angle" aria-expanded="false">
@@ -45,6 +44,8 @@ if(user.getRoles().equals("admin"))
 <ul class="submenu-angle" aria-expanded="false">
 <li><a title="Bar Charts" href="<%=request.getContextPath() %>/task/add"><i class="fa fa-plus sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">Add Task</span></a></li>
 <li><a title="Line Charts" href="<%=request.getContextPath() %>/task/list"><i class="fa fa-list sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">List</span></a></li>
+<li><a title="Line Charts" href="<%=request.getContextPath() %>/task/user/Report"><i class="fa fa-list sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">Report</span></a></li>
+
 </ul>
 </li>
 <%
@@ -55,7 +56,6 @@ if(user.getRoles().equals("admin"))
 <a class="has-arrow" href="mailbox.html" aria-expanded="false"><i class="fa big-icon fa-home icon-wrap"></i> <span class="mini-click-non">Task</span></a>
 <ul class="submenu-angle" aria-expanded="false">
 <li><a title="Bar Charts" href="<%=request.getContextPath() %>/user/task/pending"><i class="fa fa-plus sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">Pending</span></a></li>
-<li><a title="Line Charts" href="<%=request.getContextPath() %>/user/task/completed"><i class="fa fa-list sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">Completed</span></a></li>
 </ul>
 </li>
 <li>
@@ -65,6 +65,8 @@ if(user.getRoles().equals("admin"))
 <li><a title="Line Charts" href="<%=request.getContextPath() %>/task/report/list"><i class="fa fa-list sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">List</span></a></li>
 </ul>
 </li>
+<li><a title="Line Charts" href="<%=request.getContextPath() %>/task/user/Report"><i class="fa fa-list sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">Report List</span></a></li>
+
 	<%
 }
 %>

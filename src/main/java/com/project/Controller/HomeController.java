@@ -1,10 +1,12 @@
 package com.project.Controller;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpSession;
 import javax.websocket.Session;
@@ -48,6 +50,7 @@ public class HomeController {
 	private UserServiceImpl userServiceImpl;
 	 @Autowired
 	 Token token;
+	 
 	@Autowired
 	private RestTemplate restTemplate;
 	@Autowired
@@ -58,7 +61,11 @@ public class HomeController {
 		if(session.getAttribute("user")==null) {
 			return "redirect:/login";
 		}else {
+			
 			User[] account=userServiceImpl.ListUser(session);
+			User user=(User)session.getAttribute("user");
+			String string=taskService.getTaskAssignList1(session, user.getId().intValue());
+			mode.addAttribute("userinfo",string);
 			mode.addAttribute("list",account);
 			return "index";
 		}
@@ -191,6 +198,7 @@ System.out.println(map);
 
 		ResponseEntity<User> response = restTemplate.exchange(urlUtill.viewString+"/"+id,HttpMethod.GET, request, User.class);
 		User user=response.getBody();
+		
 		model.addAttribute("list", user);
 		return "view";
 	}
@@ -219,7 +227,19 @@ System.out.println(map);
 	   return "usertasklist";
    }
    @RequestMapping(value = "user/task/completed",method = RequestMethod.GET)
-   public String completed() {
+   public String completed(HttpSession session,Model model) {
+	   User user=(User) session.getAttribute("user");
+	   Task[] list=taskService.getAllListbyUserid(session);
+		List<Task> list2=Arrays.asList(list);
+		List<Task> list3=new ArrayList<>();
+		  
+	   if(user.getRoles().equals("Admin")) {
+		   list3= list2.stream().filter(x->x.isIsActive()).collect(Collectors.toList());
+		   model.addAttribute("list",list3);
+	   }else {
+		   list3= list2.stream().filter(x->x.getUser_id().equals(user.getId().intValue())).filter(x->x.isIsActive()).collect(Collectors.toList());
+		   model.addAttribute("list",list3);
+	   }
 	   return "usertaskcompleted";
    }
    @RequestMapping("/logout")

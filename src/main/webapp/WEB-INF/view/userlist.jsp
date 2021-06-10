@@ -20,7 +20,7 @@
 </div>
 
 
-<div class="section-admin container-fluid" style="margin-left:20%">
+<div class="section-admin container-fluid" style="margin-left:20%;">
 <div class="row admin text-center">
 <c:if test="${message!=null}">
 <div class="alert alert-success">${message}</div>

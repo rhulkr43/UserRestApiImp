@@ -1,6 +1,7 @@
 package com.project.Model;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class TaskAssign {
 private Long id;
@@ -17,6 +18,33 @@ private Long id;
 	
 	private String endingTime;
  
+	private Task task;
+	
+	
+	private User user;
+	
+	public User getUser() {
+		return user;
+	}
+
+
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+
+
+	public Task getTask() {
+		return task;
+	}
+	
+	
+
+	public void setTasks(Task tasks) {
+		this.task = tasks;
+	}
+
 	private Integer taskid;
 	
 	public Integer getTaskid() {

@@ -14,7 +14,7 @@
 <div class="row">
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 <div class="breadcome-list">
-<h1 class="text-center"> Task  List</h1>
+<h1 class="text-center">User Report List</h1>
 </div>
 </div>
 </div>
@@ -30,28 +30,33 @@
 <div class="col-md-12">
 <table class="table table-bordered">
 <tr>
+<td>Task Title</td>
+<td>Assign Date</td>
 <td>Username</td>
-<td>Title</td>
+<td>Subject</td>
 <td>Comment</td>
-<td>Date</td>
+<td> Start Time</td>
+<td> Ending Time</td>
 <td>Status</td>
 </tr>
 <c:forEach var="list" items="${list}">
 
 <tr>
-<td>${list.getUser().getUsername()}
-<td>${list.getTitle()}</td>
-<td>${list.getComment()}</td>
-<td>${list.getAssigndate()}</td>
+<td>${list.task.title}</td>
+<td>${list.task.assigndate}</td>
+<td>${list.user.username}</td>
+<td>${list.subject}</td>
+<td>${list.comment}</td>
+<td>${list.startingtime}</td>
+<td>${list.endingTime}</td>
 <td>
-<c:if test="${list.isActive==true}">
-Done
+<c:if test="${list.completed==false}">
+Pending
 </c:if>
-<c:if test="${list.isActive==false}">
-pending
+<c:if test="${list.completed==true}">
+done
 </c:if>
 </td>
-
 </tr>
 </c:forEach>
 </table>

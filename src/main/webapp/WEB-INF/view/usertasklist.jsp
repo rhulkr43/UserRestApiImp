@@ -35,6 +35,7 @@
 <td>Comment</td>
 <td>Date</td>
 <td>Status</td>
+
 </tr>
 <c:forEach var="list" items="${list}">
 
@@ -44,6 +45,7 @@
 <td>${list.getComment()}</td>
 <td>${list.getAssigndate()}</td>
 <td>${list.isIsActive()}</td>
+
 </tr>
 </c:forEach>
 </table>

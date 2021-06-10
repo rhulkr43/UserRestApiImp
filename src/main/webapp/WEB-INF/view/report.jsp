@@ -52,6 +52,16 @@
 <td>Ending Starting</td><td><input type="time" name="ending_time" class="form-control"/></td>
 </tr>
 <tr>
+<td>Status</td><td>
+<select class="form-control" name=status>
+<option>Select Status</option>
+<option value="false">InProcess</option>
+<option value="true">Completed</option>
+<option value="false">Pending</option>
+</select>
+</td>
+</tr>
+<tr>
 <td></td><td><input type="submit"  class="btn btn-primary"/></td>
 </tr>
 </table>

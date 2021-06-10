@@ -28,4 +28,9 @@ public class UrlUtill {
 	public static String taskassignsaveString=baseurl+"/task/taskassign/save";
 	
 	public static String taskAssignLiString=baseurl+"/task/taskassignlist";
+	public static String taskAssignLiStringuserid=baseurl+"/task/taskassignlist";
+	public static String userdashboardString=baseurl+"/task/dashboard/user";
+	
+	
+	public static String updatetaskstatuString=baseurl+"/task/taskupdate/";
 }

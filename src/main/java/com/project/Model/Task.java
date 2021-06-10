@@ -1,6 +1,8 @@
 package com.project.Model;
 
 import java.time.LocalDate;
+import java.util.Comparator;
+import java.util.List;
 public class Task {
 	
 	
@@ -13,6 +15,22 @@ public class Task {
 	private boolean IsActive;
 	private Integer user_id;
 	
+	List<TaskAssign> taskAssigns;
+	
+	private User user;
+	
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
+	public List<TaskAssign> getTaskAssigns() {
+		return taskAssigns;
+	}
+	public void setTaskAssigns(List<TaskAssign> taskAssigns) {
+		this.taskAssigns = taskAssigns;
+	}
 	public String getTitle() {
 		return title;
 	}
@@ -63,6 +81,7 @@ public class Task {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+
 	
 
 }
