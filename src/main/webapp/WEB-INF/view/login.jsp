@@ -65,6 +65,9 @@
 </div>
 <div class="hpanel">
 <div class="panel-body">
+<c:if test="${message!=null}">
+<div class="alert alert-danger">${message}</div>
+</c:if>
 <form action="<%= request.getContextPath() %>/login" id="loginForm" method="POST">
 <div class="form-group">
 <label class="control-label" for="username">Username</label>

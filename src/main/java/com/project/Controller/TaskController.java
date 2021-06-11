@@ -12,6 +12,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.websocket.Session;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -23,9 +24,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.annotation.ObjectIdGenerators.StringIdGenerator;
 import com.project.ApiUtill.UrlUtill;
+import com.project.Helper.UploadHelper;
 import com.project.Model.Task;
 import com.project.Model.TaskAssign;
 import com.project.Model.Token;
@@ -47,11 +50,17 @@ public class TaskController {
 	 Token token;
 	@Autowired
 	private RestTemplate restTemplate;
+	@Autowired
+	private UploadHelper uploadHelper;
+	 @Value("${app.upload.dir}")
+	 private String uploadString;
 	@RequestMapping(value = "/list",method = RequestMethod.GET)
-	public String task(Model mode,HttpSession session) {
+	public String task(Model mode,HttpSession session,Model model) {
+		User user=(User)session.getAttribute("user");
+		
 		Task[] account=taskService.getAllList(session);
 		List<Task> list=Arrays.asList(account);
-		
+		model.addAttribute("path",uploadString+"/"+user.getRoles());
 		mode.addAttribute("list",list);
 		return "tasklist";
 	}
@@ -63,12 +72,23 @@ public class TaskController {
 		return "addtask";
 	}
 	@RequestMapping(value = "/add",method = RequestMethod.POST)
-	public String save(HttpSession session,@RequestParam("user_id") String user_id,@RequestParam("title") String title,@RequestParam("comment") String comment) {
+	public String save(HttpSession session,@RequestParam("user_id") String user_id,@RequestParam("title") String title,@RequestParam("comment") String comment,@RequestParam("file") MultipartFile file) {
+		User user=(User)session.getAttribute("user");
 		Map<String, Object> map=new HashMap<>();
 		map.put("user_id", Integer.parseInt(user_id));
 		map.put("title", title);
 		map.put("comment", comment);
 		map.put("assigndate", LocalDate.now());
+		if(file.isEmpty()) {
+			map.put("attachment", "");
+			System.out.print("Not selected");
+		}else {
+			
+			boolean st=uploadHelper.uploadcsv(file, user.getRoles());
+			map.put("attachment", file.getOriginalFilename());
+			System.out.print("File Upload"+st);
+		}
+		
 		HttpHeaders headers = new HttpHeaders();
 		String t2="Bearer "+session.getAttribute("token");
 		headers.add("Authorization",t2);
@@ -131,7 +151,7 @@ public class TaskController {
 			
 			model.addAttribute("list",lisTaskAssigns);
 		}
-		
+		model.addAttribute("path",uploadString+"/"+user.getRoles());
 		return "reportlist";
 	}
 	

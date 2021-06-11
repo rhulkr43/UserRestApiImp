@@ -15,8 +15,17 @@ public class Task {
 	private boolean IsActive;
 	private Integer user_id;
 	
+	private String attachment;
+	
+	
 	List<TaskAssign> taskAssigns;
 	
+	public String getAttachment() {
+		return attachment;
+	}
+	public void setAttachment(String attachment) {
+		this.attachment = attachment;
+	}
 	private User user;
 	
 	public User getUser() {

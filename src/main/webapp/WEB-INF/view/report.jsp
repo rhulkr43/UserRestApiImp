@@ -33,7 +33,10 @@
 <select name="taskid" class="form-control">
 <option value="">Select User</option>
 <c:forEach var="list" items="${list}">
+<c:if test="${!list.isActive}">
 <option value="${list.getTask_id()}">${list.title}</option>
+</c:if>
+
 </c:forEach>
 </select>
 

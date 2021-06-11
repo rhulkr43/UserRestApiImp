@@ -24,16 +24,19 @@
 
 <div class="section-admin container-fluid"  style="margin-left:20%" >
 <div class="row admin text-center">
-<
+
 <div class="col-md-12">
-<form action="/task/add" method="POST">
+<form action="/task/add" method="POST" enctype="multipart/form-data">
 <table class="table table-bordered">
 <tr>
 <td>select User</td><td>
 <select name="user_id" class="form-control">
 <option>Select User</option>
 <c:forEach var="list" items="${list}">
+<c:if test="${list.roles=='User'}">
 <option value="${list.getId()}">${list.getUsername()}</option>
+</c:if>
+
 </c:forEach>
 </select>
 
@@ -45,7 +48,9 @@
 <tr>
 <td>Comment</td><td><textarea rows="10" cols="10" name="comment" class="form-control"></textarea></td>
 </tr>
-
+<tr>
+<td>Attachment</td><td><input type="file" name="file" class="form-control"/></td>
+</tr>
 <tr>
 <td></td><td><input type="submit"  class="btn btn-primary"/></td>
 </tr>

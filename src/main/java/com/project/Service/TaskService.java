@@ -35,8 +35,7 @@ public class TaskService {
 	
 	public Task[] getAllList(HttpSession session) {
 		User user=(User) session.getAttribute("user");
-		System.out.println(user.getRoles());
-		String t1="Bearer "+session.getAttribute("token");
+			String t1="Bearer "+session.getAttribute("token");
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Authorization",t1);
 		HttpEntity<String> request = new HttpEntity<String>(headers);

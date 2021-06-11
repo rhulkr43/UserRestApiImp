@@ -34,6 +34,7 @@
 <td>Title</td>
 <td>Comment</td>
 <td>Date</td>
+<td>Attachment</td>
 <td>Status</td>
 </tr>
 <c:forEach var="list" items="${list}">
@@ -43,6 +44,15 @@
 <td>${list.getTitle()}</td>
 <td>${list.getComment()}</td>
 <td>${list.getAssigndate()}</td>
+<td>
+<c:if test="${list.attachment==null }">
+No Attachment
+</c:if>
+<c:if test="${list.attachment!=null }">
+
+ <a href="javascript:void(0)">${list.attachment}</a>
+</c:if>
+</td>
 <td>
 <c:if test="${list.isActive==true}">
 Done

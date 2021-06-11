@@ -1,5 +1,7 @@
 package com.project.Controller;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -8,11 +10,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.websocket.Session;
 
 import org.apache.catalina.filters.AddDefaultCharsetFilter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -29,6 +34,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 
 import com.project.ApiUtill.UrlUtill;
 import com.project.Model.Task;
@@ -50,7 +56,8 @@ public class HomeController {
 	private UserServiceImpl userServiceImpl;
 	 @Autowired
 	 Token token;
-	 
+	 @Value("${app.upload.dir}")
+	 private String uploadString;
 	@Autowired
 	private RestTemplate restTemplate;
 	@Autowired
@@ -61,18 +68,46 @@ public class HomeController {
 		if(session.getAttribute("user")==null) {
 			return "redirect:/login";
 		}else {
+			User user=(User)session.getAttribute("user");
+			Task[] task=taskService.getAllList(session);
 			
 			User[] account=userServiceImpl.ListUser(session);
-			User user=(User)session.getAttribute("user");
-			String string=taskService.getTaskAssignList1(session, user.getId().intValue());
-			mode.addAttribute("userinfo",string);
-			mode.addAttribute("list",account);
+			List<User> countuserList=Arrays.asList(account);
+			List<Task> task1=Arrays.asList(task);
+			
+			if(user.getRoles().equals("Admin")) {
+				Long totaluserLong=countuserList.stream().filter(x->x.getRoles().equals("User")).count();
+				//Task code
+				Long tasks2=task1.stream().filter(x->x.isIsActive()).count();
+				mode.addAttribute("list",account);
+				mode.addAttribute("totaluser",totaluserLong);
+				mode.addAttribute("totaltask",task1.size());
+				mode.addAttribute("completed",tasks2);
+			}else {
+				Task[] task3=taskService.getAllList(session);
+				
+				List<Task> tasks=Arrays.asList(task3);
+				Long total=tasks.stream().filter(y->y.getUser_id()==user.getId().intValue()).count();
+				
+				Long tasks3=tasks.stream().filter(x->x.isIsActive()).filter(x->x.getUser_id().equals(user.getId().intValue())).count();
+				mode.addAttribute("totaltask",total);
+				mode.addAttribute("completed",tasks3);
+			}
+			
+			
 			return "index";
 		}
 		
 		
 		
 	}
+	
+	@RequestMapping(value = "/downloadFile/{name}", method = RequestMethod.GET)
+	public void getSteamingFile1(HttpServletResponse response,String name,HttpSession session) throws IOException {
+		User user=(User) session.getAttribute("user");
+		String filenameString=this.uploadString+"/"+user.getRoles()+"/"+name;
+		
+		}
 	@RequestMapping(value="/user",method = RequestMethod.GET)
 	public String user(Model mode,HttpSession session) {
 		
@@ -117,7 +152,7 @@ public class HomeController {
 			headers.add("Authorization",t1);
 			HttpEntity<String> request = new HttpEntity<String>(headers);
 		    ResponseEntity<User> response = restTemplate.exchange(urlUtill.getuserString+"/"+username, HttpMethod.GET, request, User.class);
-			
+		
 			session.setAttribute("user", response.getBody());
 		    session.setAttribute("token", token);
 		    model.addAttribute("message", "User Login Successfull");
@@ -125,7 +160,7 @@ public class HomeController {
 
 		}catch (Exception e) {
 			// TODO: handle exception
-			model.addAttribute("message","invalid credentials");
+			model.addAttribute("","invalid credentials");
 			return "login";
 		}
 		
@@ -219,29 +254,24 @@ System.out.println(map);
 	   return "edit";
    }
    
-   @RequestMapping(value = "user/task/pending",method = RequestMethod.GET)
-   public String userTask(HttpSession session,Model model) {
+   @RequestMapping(value = "user/task/{status}",method = RequestMethod.GET)
+   public String userTask(@PathVariable("status") String status,  HttpSession session,Model model) {
 	   
 	   Task[] list=taskService.getAllListbyUserid(session);
-	   model.addAttribute("list",list);
+	   List<Task> list1=Arrays.asList(list);
+	   List<Task> filterList=null;
+	   if(status.equals("pending")) {
+		   filterList=list1.stream().filter(x->x.isIsActive()==false).collect(Collectors.toList());
+		   model.addAttribute("message","Pending Task List");
+	   }else {
+		   filterList=list1.stream().filter(x->x.isIsActive()==true).collect(Collectors.toList());
+		   model.addAttribute("message","Completed Task List");
+	   }
+	  
+	   model.addAttribute("list",filterList);
 	   return "usertasklist";
    }
-   @RequestMapping(value = "user/task/completed",method = RequestMethod.GET)
-   public String completed(HttpSession session,Model model) {
-	   User user=(User) session.getAttribute("user");
-	   Task[] list=taskService.getAllListbyUserid(session);
-		List<Task> list2=Arrays.asList(list);
-		List<Task> list3=new ArrayList<>();
-		  
-	   if(user.getRoles().equals("Admin")) {
-		   list3= list2.stream().filter(x->x.isIsActive()).collect(Collectors.toList());
-		   model.addAttribute("list",list3);
-	   }else {
-		   list3= list2.stream().filter(x->x.getUser_id().equals(user.getId().intValue())).filter(x->x.isIsActive()).collect(Collectors.toList());
-		   model.addAttribute("list",list3);
-	   }
-	   return "usertaskcompleted";
-   }
+ 
    @RequestMapping("/logout")
    public String logout(HttpSession session) {
 	   session.invalidate();

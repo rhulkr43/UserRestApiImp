@@ -2,7 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
         <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>   
-  
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <!DOCTYPE html>
 <html>
 
@@ -41,105 +41,53 @@ if(admin.equals("Admin"))
 
 <div class="row">
 
-<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
 <div class="admin-content analysis-progrebar-ctn res-mg-t-15">
 <h4 class="text-left text-uppercase"><b>Total User</b></h4>
 <div class="row vertical-center-box vertical-center-box-tablet">
-<div class="col-xs-3 mar-bot-15 text-left">
-<label class="label bg-green">30% <i class="fa fa-level-up" aria-hidden="true"></i></label>
-</div>
+
 <div class="col-xs-9 cus-gh-hd-pro">
 <h2 class="text-right no-margin">${totaluser}</h2>
 </div>
 </div>
-<div class="progress progress-mini">
-<div style="width: 78%;" class="progress-bar bg-green"></div>
-</div>
-</div>
-</div>
-<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" style="margin-bottom:1px;">
-<div class="admin-content analysis-progrebar-ctn res-mg-t-30">
-<h4 class="text-left text-uppercase"><b>Active User</b></h4>
-<div class="row vertical-center-box vertical-center-box-tablet">
-<div class="text-left col-xs-3 mar-bot-15">
-<label class="label bg-red">15% <i class="fa fa-level-down" aria-hidden="true"></i></label>
-</div>
-<div class="col-xs-9 cus-gh-hd-pro">
-<h2 class="text-right no-margin">5,000</h2>
-</div>
-</div>
-<div class="progress progress-mini">
-<div style="width: 38%;" class="progress-bar progress-bar-danger bg-red"></div>
-</div>
-</div>
-</div>
-<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-<div class="admin-content analysis-progrebar-ctn res-mg-t-30">
-<h4 class="text-left text-uppercase"><b>InActive User</b></h4>
-<div class="row vertical-center-box vertical-center-box-tablet">
-<div class="text-left col-xs-3 mar-bot-15">
-<label class="label bg-blue">50% <i class="fa fa-level-up" aria-hidden="true"></i></label>
-</div>
-<div class="col-xs-9 cus-gh-hd-pro">
-<h2 class="text-right no-margin">$70,000</h2>
-</div>
-</div>
-<div class="progress progress-mini">
-<div style="width: 60%;" class="progress-bar bg-blue"></div>
-</div>
+
 </div>
 </div>
 
-</div>
-
-<div class="row" style="margin-top:15%">
-
-<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+<div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
 <div class="admin-content analysis-progrebar-ctn res-mg-t-15">
 <h4 class="text-left text-uppercase"><b>Total Task</b></h4>
 <div class="row vertical-center-box vertical-center-box-tablet">
-<div class="col-xs-3 mar-bot-15 text-left">
-<label class="label bg-green">30% <i class="fa fa-level-up" aria-hidden="true"></i></label>
-</div>
+
 <div class="col-xs-9 cus-gh-hd-pro">
-<h2 class="text-right no-margin">0</h2>
+<h2 class="text-right no-margin">${totaltask}</h2>
 </div>
 </div>
-<div class="progress progress-mini">
-<div style="width: 78%;" class="progress-bar bg-green"></div>
+
 </div>
 </div>
-</div>
-<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" style="margin-bottom:1px;">
+<div class="col-lg-3 col-md-3 col-sm-4 col-xs-12" style="margin-bottom:1px;">
 <div class="admin-content analysis-progrebar-ctn res-mg-t-30">
 <h4 class="text-left text-uppercase"><b>Completed Task</b></h4>
 <div class="row vertical-center-box vertical-center-box-tablet">
-<div class="text-left col-xs-3 mar-bot-15">
-<label class="label bg-red">15% <i class="fa fa-level-down" aria-hidden="true"></i></label>
-</div>
+
 <div class="col-xs-9 cus-gh-hd-pro">
-<h2 class="text-right no-margin">5,000</h2>
+<h2 class="text-right no-margin">${completed}</h2>
 </div>
 </div>
-<div class="progress progress-mini">
-<div style="width: 38%;" class="progress-bar progress-bar-danger bg-red"></div>
+
 </div>
 </div>
-</div>
-<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
 <div class="admin-content analysis-progrebar-ctn res-mg-t-30">
 <h4 class="text-left text-uppercase"><b>Pending Task</b></h4>
 <div class="row vertical-center-box vertical-center-box-tablet">
-<div class="text-left col-xs-3 mar-bot-15">
-<label class="label bg-blue">50% <i class="fa fa-level-up" aria-hidden="true"></i></label>
-</div>
-<div class="col-xs-9 cus-gh-hd-pro">
-<h2 class="text-right no-margin">$70,000</h2>
+
+<div class="col-xs-3 cus-gh-hd-pro">
+<h2 class="text-right no-margin">${totaltask-completed}</h2>
 </div>
 </div>
-<div class="progress progress-mini">
-<div style="width: 60%;" class="progress-bar bg-blue"></div>
-</div>
+
 </div>
 </div>
 
@@ -147,67 +95,86 @@ if(admin.equals("Admin"))
 
 </div>
 </div>
+
 </div>
-	
+
 	<%
 }else{
 	%>
-	<%=admin %>
-	<div class="row" style="margin-top:15%">
+	
+	<div class="row">
 
 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
 <div class="admin-content analysis-progrebar-ctn res-mg-t-15">
 <h4 class="text-left text-uppercase"><b>Total Task</b></h4>
 <div class="row vertical-center-box vertical-center-box-tablet">
-<div class="col-xs-3 mar-bot-15 text-left">
-<label class="label bg-green">30% <i class="fa fa-level-up" aria-hidden="true"></i></label>
-</div>
+
 <div class="col-xs-9 cus-gh-hd-pro">
-<h2 class="text-right no-margin">0</h2>
+<h2 class="text-right no-margin">${totaltask}</h2>
 </div>
 </div>
-<div class="progress progress-mini">
-<div style="width: 78%;" class="progress-bar bg-green"></div>
-</div>
+
 </div>
 </div>
 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" style="margin-bottom:1px;">
 <div class="admin-content analysis-progrebar-ctn res-mg-t-30">
 <h4 class="text-left text-uppercase"><b>Completed Task</b></h4>
 <div class="row vertical-center-box vertical-center-box-tablet">
-<div class="text-left col-xs-3 mar-bot-15">
-<label class="label bg-red">15% <i class="fa fa-level-down" aria-hidden="true"></i></label>
-</div>
+
 <div class="col-xs-9 cus-gh-hd-pro">
-<h2 class="text-right no-margin">5,000</h2>
+<h2 class="text-right no-margin">${completed}</h2>
 </div>
 </div>
-<div class="progress progress-mini">
-<div style="width: 38%;" class="progress-bar progress-bar-danger bg-red"></div>
-</div>
+
 </div>
 </div>
 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
 <div class="admin-content analysis-progrebar-ctn res-mg-t-30">
 <h4 class="text-left text-uppercase"><b>Pending Task</b></h4>
 <div class="row vertical-center-box vertical-center-box-tablet">
-<div class="text-left col-xs-3 mar-bot-15">
-<label class="label bg-blue">50% <i class="fa fa-level-up" aria-hidden="true"></i></label>
-</div>
-<div class="col-xs-9 cus-gh-hd-pro">
-<h2 class="text-right no-margin">$70,000</h2>
-</div>
-</div>
-<div class="progress progress-mini">
-<div style="width: 60%;" class="progress-bar bg-blue"></div>
-</div>
+
+<div class="col-xs-3 cus-gh-hd-pro">
+<h2 class="text-right no-margin">${totaltask-completed}</h2>
 </div>
 </div>
 
+</div>
+</div>
 </div>
 	
 	<%
 }
 %>
+<div class="row">
+<div class="col-lg-6"></div>
+<div class="col-lg-6">
+<div id="chart_div"></div>
+</div>
+
+</div>	
+<script type="text/javascript">
+
+        google.charts.load('current', {'packages':['corechart']});
+	    google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+
+            // Create the data table.
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Topping');
+            data.addColumn('number', 'Slices');
+            data.addRows([
+                
+                ['Completed',${completed}],
+                ['Pending', ${totaltask-completed}]
+            ]);
+
+            var options = {'title':'User Task Report Graphic Representation',
+                'width':400,
+                'height':300};
+		   var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+            chart.draw(data, options);
+        }
+    </script>
 <jsp:include page="footer.jsp"></jsp:include>
 </body>

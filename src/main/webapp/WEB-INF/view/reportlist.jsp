@@ -47,7 +47,14 @@
 <td>${list.startingtime}</td>
 <td>${list.endingTime}</td>
 <td>${list.date}</td>
-<td>${list.isCompleted()}</td>
+<td>${list.isCompleted()}
+<c:if test="${list.isCompleted}">
+<button class="pd-setting">Done</button>
+</c:if>
+<c:if test="${!list.isCompleted}">
+<button class="ds-setting">Pending</button>
+</c:if>
+</td>
 </tr>
 </c:forEach>
 </table>
