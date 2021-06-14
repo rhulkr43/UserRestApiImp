@@ -11,18 +11,29 @@
 
 <jsp:include page="header.jsp"></jsp:include>
 
-<div class="breadcome-area" style="margin-left:20%">
+<div class="breadcome-area" style="background: #c21a06;">
 <div class="container-fluid">
 <div class="row">
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 <div class="breadcome-list">
-<h1>Edit User</h1>
-</div>
-</div>
-</div>
-</div>
-</div>
+<div class="row">
+<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
 
+</div>
+<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+<ul class="breadcome-menu">
+<li><a href="#">Home</a> <span class="bread-slash">/</span>
+</li>
+<li><span class="bread-blod">Edit User</span>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 <div class="section-admin container-fluid" >
 <div class="row admin text-center">
 <c:if test="${message}!=null">

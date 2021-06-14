@@ -6,21 +6,31 @@
 <html>
 
 <jsp:include page="header.jsp"></jsp:include>
-
-<div class="breadcome-area">
+<div class="breadcome-area" style="background: #c21a06;">
 <div class="container-fluid">
 <div class="row">
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 <div class="breadcome-list">
-<h1 class="text-center"> User  List</h1>
+<div class="row">
+<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+
+</div>
+<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+<ul class="breadcome-menu">
+<li><a href="#">Home</a> <span class="bread-slash">/</span>
+</li>
+<li><span class="bread-blod">User List</span>
+</li>
+</ul>
+</div>
+</div>
 </div>
 </div>
 </div>
 </div>
 </div>
 
-
-<div class="section-admin container-fluid" style="margin-left:20%;">
+<div class="section-admin container-fluid" style="margin-left:20%;margin-top:3%">
 <div class="row admin text-center">
 <c:if test="${message!=null}">
 <div class="alert alert-success">${message}</div>
@@ -28,31 +38,58 @@
 
 
 <div class="col-md-12">
-<table class="table table-bordered">
-<tr>
-<td>Id</td>
-<td>Username</td>
-<td>Email</td>
-<td>Mobile</td>
-<td>View</td>
-<td>Delete</td>
-<td>Update</td>
+<table class="table table-bordered" id="usertable">
+<thead>
+<tr style="background: #b01508;
+    color: white;
+    font-size: 18px;
+    font-weight: 200;
+    text-align: center;
+    position: inherit;
+    text-align-last: center;">
+
+<th>Username</th>
+<th>Email</th>
+<th>Mobile</th>
+<th>View</th>
+<th>Delete</th>
+<th>Update</th>
 </tr>
+</thead>
+<tbody>
 <c:forEach var="list" items="${list}">
 
 <tr>
-<td>${list.getId()}</td>
+
 <td>${list.getUsername()}</td>
 <td>${list.getEmail()}</td>
 <td>${list.getRoles()}</td>
-<td><a href="<%= request.getContextPath() %>/view/${list.getId()}" class="btn btn-primary">View</a></td>
-<td><a href="<%= request.getContextPath() %>/delete/${list.getId()}" class="btn btn-danger">Delete</td>
-<td><a href="<%= request.getContextPath() %>/edit/${list.getId()}" class="btn btn-success">Edit</a></td>
+<td><a href="<%= request.getContextPath() %>/view/${list.getId()}"><i class="fa fa-eye" aria-hidden="true"></i></a></td>
+<td><a href="<%= request.getContextPath() %>/delete/${list.getId()}" ><i class="fa fa-trash" aria-hidden="true"></i></td>
+<td><a href="<%= request.getContextPath() %>/edit/${list.getId()}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
 </tr>
 </c:forEach>
+</tbody>
+<tfooter>
+<tr style="background: #b01508;
+    color: white;
+    font-size: 18px;
+    font-weight: 200;
+    text-align: center;
+    position: inherit;
+    text-align-last: center;">
+<th>Username</th>
+<th>Email</th>
+<th>Mobile</th>
+<th>View</th>
+<th>Delete</th>
+<th>Update</th>
+</tr>
+</tfooter>
 </table>
 </div>
 </div>
 </div>
+
 <jsp:include page="footer.jsp"></jsp:include>
 </body>

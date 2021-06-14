@@ -83,6 +83,7 @@ public class HomeController {
 				mode.addAttribute("totaluser",totaluserLong);
 				mode.addAttribute("totaltask",task1.size());
 				mode.addAttribute("completed",tasks2);
+				
 			}else {
 				Task[] task3=taskService.getAllList(session);
 				
@@ -90,6 +91,7 @@ public class HomeController {
 				Long total=tasks.stream().filter(y->y.getUser_id()==user.getId().intValue()).count();
 				
 				Long tasks3=tasks.stream().filter(x->x.isIsActive()).filter(x->x.getUser_id().equals(user.getId().intValue())).count();
+				
 				mode.addAttribute("totaltask",total);
 				mode.addAttribute("completed",tasks3);
 			}
@@ -138,10 +140,19 @@ public class HomeController {
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String loginsave(Model model,@RequestParam("username") String username,@RequestParam("password") String password,HttpSession session) {
 		System.out.println(username+" "+password);
+		
+		if(username.isEmpty()) {
+			model.addAttribute("message", "Invalid Username");
+		}
+		else if(password.isEmpty()) {
+			model.addAttribute("message", "Invalid Password");
+		}else {
+			
+		
 		Map<String, String> map=new HashMap<>();
 		map.put("username", username);
 		map.put("password", password);
-		System.out.println(map);
+		
 		try {
 			ResponseEntity<Token> data=restTemplate.postForEntity(urlUtill.gettoken, map, Token.class);
 			HttpStatus statuString=data.getStatusCode();
@@ -163,8 +174,9 @@ public class HomeController {
 			model.addAttribute("","invalid credentials");
 			return "login";
 		}
+		}
 		
-		
+		return "login";
 			
 		
 		

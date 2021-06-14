@@ -53,7 +53,7 @@ if(user.getRoles().equals("Admin"))
 }else{
 	%>
 <li>
-<a class="has-arrow" href="mailbox.html" aria-expanded="false"><i class="fa big-icon fa-home icon-wrap"></i> <span class="mini-click-non">Task</span></a>
+<a class="has-arrow" href="mailbox.html" aria-expanded="false"><i class="fa fa-tasks" aria-hidden="true"></i> <span class="mini-click-non">Task</span></a>
 <ul class="submenu-angle" aria-expanded="false">
 <li><a title="Bar Charts" href="<%=request.getContextPath() %>/user/task/pending"><i class="fa fa-plus sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">Pending</span></a></li>
 <li><a title="Bar Charts" href="<%=request.getContextPath() %>/user/task/done"><i class="fa fa-plus sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">Done</span></a></li>
@@ -61,12 +61,12 @@ if(user.getRoles().equals("Admin"))
 </ul>
 </li>
 <li>
-<a class="has-arrow" href="mailbox.html" aria-expanded="false"><i class="fa big-icon fa-home icon-wrap"></i> <span class="mini-click-non">Task Report</span></a>
+<a class="has-arrow" href="mailbox.html" aria-expanded="false"><i class="fa fa-tasks" aria-hidden="true"></i> <span class="mini-click-non">Task Report</span></a>
 <ul class="submenu-angle" aria-expanded="false">
 <li><a title="Bar Charts" href="<%=request.getContextPath() %>/task/report"><i class="fa fa-plus sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">Report </span></a></li>
 </ul>
 </li>
-<li><a title="Line Charts" href="<%=request.getContextPath() %>/task/user/Report"><i class="fa fa-list sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">Report List</span></a></li>
+<li><a title="Line Charts" href="<%=request.getContextPath() %>/task/user/Report"><i class="fa big-icon fa-bar-chart-o icon-wrap" aria-hidden="true"></i> <span class="mini-sub-pro">Report List</span></a></li>
 
 	<%
 }
@@ -83,4 +83,6 @@ if(user.getRoles().equals("Admin"))
 </div>
 </nav>
 </div>
+
+
 

@@ -58,25 +58,26 @@
 <div class="container-fluid">
 <div class="row" style="margin-top:8%">
 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"></div>
-<div class="col-md-4 col-md-4 col-sm-4 col-xs-12">
+<div class="col-md-4 col-md-4 col-sm-4 col-xs-12" style="border: 1px solid;
+    padding: 4%;">
 <div class="text-center m-b-md custom-login">
 <h3>Task Management System</h3>
 
 </div>
 <div class="hpanel">
-<div class="panel-body">
+<div class="panel-body" >
 <c:if test="${message!=null}">
 <div class="alert alert-danger">${message}</div>
 </c:if>
 <form action="<%= request.getContextPath() %>/login" id="loginForm" method="POST">
 <div class="form-group">
 <label class="control-label" for="username">Username</label>
-<input type="text"   required="" name="username" id="username" class="form-control">
+<input type="text"    name="username" id="username" placeholder="Username" class="form-control">
 
 </div>
 <div class="form-group">
 <label class="control-label" for="password">Password</label>
-<input type="password" name="password" id="password" class="form-control">
+<input type="password" name="password" id="password"  placeholder="Password" class="form-control">
 
 </div>
 

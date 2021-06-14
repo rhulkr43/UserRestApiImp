@@ -9,19 +9,31 @@
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <jsp:include page="header.jsp"></jsp:include>
-<div class="breadcome-area">
+<div class="breadcome-area" style="background: #c21a06;">
 <div class="container-fluid">
 <div class="row">
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 <div class="breadcome-list">
-<h1 class="text-center">User Report List</h1>
+<div class="row">
+<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+
+</div>
+<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+<ul class="breadcome-menu">
+<li><a href="#">Home</a> <span class="bread-slash">/</span>
+</li>
+<li><span class="bread-blod">Task Report List</span>
+</li>
+</ul>
+</div>
+</div>
 </div>
 </div>
 </div>
 </div>
 </div>
 
-<div class="section-admin container-fluid" style="margin-left:20%">
+<div class="section-admin container-fluid" style="margin-left:20%;margin-top:3%">
 <div class="row admin text-center">
 
 <c:if test="${message!=null}">
@@ -29,16 +41,25 @@
 </c:if>
 <div class="col-md-12">
 <table class="table table-bordered">
-<tr>
-<td>Task Title</td>
-<td>Assign Date</td>
-<td>Username</td>
-<td>Subject</td>
-<td>Comment</td>
-<td> Start Time</td>
-<td> Ending Time</td>
-<td>Status</td>
+<thead>
+<tr style="background: #b01508;
+    color: white;
+    font-size: 18px;
+    font-weight: 200;
+    text-align: center;
+    position: inherit;
+    text-align-last: center;">
+<th>Task Title</th>
+<th>Assign Date</th>
+<th>Username</th>
+<th>Subject</th>
+<th>Comment</th>
+<th> Start Time</th>
+<th> Ending Time</th>
+<th>Status</th>
 </tr>
+</thead>
+
 <c:forEach var="list" items="${list}">
 
 <tr>
@@ -59,6 +80,24 @@ done
 </td>
 </tr>
 </c:forEach>
+<tfoot>
+<tr style="background: #b01508;
+    color: white;
+    font-size: 18px;
+    font-weight: 200;
+    text-align: center;
+    position: inherit;
+    text-align-last: center;">
+<th>Task Title</th>
+<th>Assign Date</th>
+<th>Username</th>
+<th>Subject</th>
+<th>Comment</th>
+<th> Start Time</th>
+<th> Ending Time</th>
+<th>Status</th>
+</tr>
+</tfoot>
 </table>
 </div>
 </div>
